@@ -1620,73 +1620,81 @@
       /* =====================================
          CERTIFICATES VIEWER
       ===================================== */
-      const certImages = [
-        "python_basic_page1.png",
-        "sql_basic_page1.png",
-        "sql_intermediate_page1.png",
-        "sql_advanced_page1.png",
-        "problem_solving_intermediate_certificate_page_1.png",
-        "Deloite_certificate_page_1.png",
-        "ml_Aman_page_1.png",
-        "Aman_ML_page_1.png",
-        "Aman_AI_page_1.png",
-        "Aman_Gplus_page_1.png"
-      ];
+    const certImages = [
+  "python_basic_certificate.png",
+  "sql_basic_certificate.png",
+  "SQL(Intermediate).png",
+  "sql_advanced_certificate.png",
+  "Data_scinece_certificate_(deloit).png",
+  "Deloite_(Data Analytics).png",
+  "Abhi(eda).png",
+  "Coursera_ML_With_Python_(Certificate).png",
+  "Coursera_AI(Certificate).png",
+  "Coursera_google_(Data Analytics).png"
+];
+let currentIndex = 0;
+let slideshowTimer;
 
-      let currentIndex = 0;
-      let slideshowTimer;
+const viewer = document.getElementById("cert-viewer");
+const fullImg = document.getElementById("cert-full");
+const pdfViewer = document.getElementById("cert-pdf");
 
-      const viewer = document.getElementById("cert-viewer");
-      const fullImg = document.getElementById("cert-full");
-      const pdfViewer = document.getElementById("cert-pdf");
+window.openCert = function (path) {
+  const index = certImages.indexOf(path);
 
-      window.openCert = function (path) {
-        currentIndex = Math.max(certImages.indexOf(path), 0);
-        viewer.style.display = "flex";
-        updateViewer();
-        startSlideshow();
-      };
+  if (index !== -1) {
+    currentIndex = index;
+  } else {
+    currentIndex = 0;
+  }
 
-      window.closeCert = function () {
-        viewer.style.display = "none";
-        stopSlideshow();
-      };
+  viewer.style.display = "flex";
+  updateViewer();
+  startSlideshow();
+};
 
-      function updateViewer() {
-        const file = certImages[currentIndex];
-        const isPDF = file.toLowerCase().endsWith(".pdf");
+window.closeCert = function () {
+  viewer.style.display = "none";
+  stopSlideshow();
+};
 
-        fullImg.style.display = "none";
-        pdfViewer.style.display = "none";
+function updateViewer() {
+  const file = certImages[currentIndex];
+  const isPDF = file.toLowerCase().endsWith(".pdf");
 
-        if (isPDF) {
-          pdfViewer.src = file;
-          pdfViewer.style.display = "block";
-        } else {
-          fullImg.src = file;
-          fullImg.style.display = "block";
-        }
-      }
+  fullImg.style.display = "none";
+  pdfViewer.style.display = "none";
 
-      window.nextCert = function () {
-        currentIndex = (currentIndex + 1) % certImages.length;
-        updateViewer();
-      };
+  if (isPDF) {
+    pdfViewer.src = file;
+    pdfViewer.style.display = "block";
+  } else {
+    fullImg.src = file;
+    fullImg.style.display = "block";
+  }
+}
 
-      window.prevCert = function () {
-        currentIndex =
-          (currentIndex - 1 + certImages.length) % certImages.length;
-        updateViewer();
-      };
+window.nextCert = function () {
+  currentIndex = (currentIndex + 1) % certImages.length;
+  updateViewer();
+};
 
-      function startSlideshow() {
-        stopSlideshow();
-        slideshowTimer = setInterval(nextCert, 4000);
-      }
+window.prevCert = function () {
+  currentIndex =
+    (currentIndex - 1 + certImages.length) % certImages.length;
+  updateViewer();
+};
 
-      function stopSlideshow() {
-        clearInterval(slideshowTimer);
-      }
+function startSlideshow() {
+  slideshowTimer = setInterval(() => {
+    nextCert();
+  }, 3000); // 3 sec
+}
+
+function stopSlideshow() {
+  clearInterval(slideshowTimer);
+}
+
 
       /* Swipe support */
       let startX = 0;
@@ -1715,6 +1723,7 @@
 
 
 </html>
+
 
 
 
